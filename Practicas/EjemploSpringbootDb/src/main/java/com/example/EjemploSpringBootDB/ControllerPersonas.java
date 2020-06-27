@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package com.example.EjemploSpringBootDB;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +45,16 @@ public class ControllerPersonas {
         }
     }
     
+    @RequestMapping(value = "/personas", method = RequestMethod.PUT)
+    public Boolean actualizarPersona(@RequestBody ModelPersonas persona) {
+        try{
+            repositoryPersonas.save(persona);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
 
     @GetMapping(path = "/personas/{id}")
     public ModelPersonas getPersonaByID(@PathVariable String id) {
@@ -55,7 +63,7 @@ public class ControllerPersonas {
     }
 
     @GetMapping(path = "/personas")
-    public List<ModelPersonas> getPersona() {
+    public List<ModelPersonas> getPersonas() {
         List<ModelPersonas> lstPersonas = repositoryPersonas.findAll();
         return lstPersonas;
     }
