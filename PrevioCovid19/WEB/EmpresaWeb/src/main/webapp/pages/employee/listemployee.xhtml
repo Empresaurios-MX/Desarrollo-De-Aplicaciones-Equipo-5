@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:b="http://bootsfaces.net/ui" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>  
+        <title>Menu</title>  
+
+        <link rel="stylesheet" type="text/css" href="../../resources/css/syles.css"/>
+    </h:head>
+    <h:body>  
+        <ui:include src="../../navbar/navbartop.xhtml"/>
+
+        <h:form style="margin: 1em">  
+            <div class="page-header">
+                <center><h1>Registros</h1></center>
+            </div>  
+            <b:dataTable value="#{employeeBean.employees}" var="employee" selection-mode="single">
+                <b:dataTableColumn label="ID" value="#{employee.id}"/>
+                <b:dataTableColumn label="Nombre" value="#{employee.name}"/>
+                <b:dataTableColumn label="Direcci&oacute;n" value="#{employee.address}"/>
+                <b:dataTableColumn label="Tel&eacute;fono" value="#{employee.phone}"/>
+
+                <b:dataTableColumn label="" orderable="false">
+                    <b:commandButton value="Editar" icon="edit" action="/pages/employee/updateemployee">
+                        <f:setPropertyActionListener value="#{employee}" target="#{employeeBean.employee}"/>
+                    </b:commandButton>
+                </b:dataTableColumn> 
+
+                <b:dataTableColumn label="" orderable="false">
+                    <b:commandButton value="Eliminar" icon="trash" action="${employeeBean.delete(employee.id)}"/>
+                </b:dataTableColumn> 
+            </b:dataTable>  
+            <center>
+                <b:commandButton action="/pages/employee/createemployee" value="Agregar" look="primary" icon="upload">
+                    <f:setPropertyActionListener value="#{employeeBean.newEmployee()}" target="#{employeeBean.employee}"/>
+                </b:commandButton>
+            </center>
+        </h:form>
+    </h:body> 
+</html>  

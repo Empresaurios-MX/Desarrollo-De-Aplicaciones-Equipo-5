@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:b="http://bootsfaces.net/ui" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Editar Empleado</title>
+
+    </h:head>
+    <h:body>
+        <ui:include src="../../navbar/navbartop.xhtml"/>
+
+        <div class="container">
+            <div class="page-header">
+                <h1>Editar Empleado</h1>
+            </div>
+            
+            <b:form horizontal="true" class="container">
+                <b:panelGrid columns="1">
+                    <b:inputText value="#{employeeBean.employee.name}" title="Nombre" placeholder="Nombre" col-sm="4"/>
+                    <b:inputText value="#{employeeBean.employee.address}" title="Domicilio" placeholder="Domicilio" col-sm="4"/>
+                    <b:inputText value="#{employeeBean.employee.phone}" title="Tel&eacute;fono" placeholder="Tel&eacute;fono" col-sm="4"/>
+                </b:panelGrid>
+
+                <b:commandButton value="Guardar" icon="check" look="primary" action="${employeeBean.update()}"/>
+            </b:form>
+        </div>
+    </h:body>
+</html>
