@@ -14,25 +14,24 @@
 						<div class="col-sm-12">
 							<div class="form-group">
 								<label for="recipient-name" class="col-form-label">Clave: </label>
-								<input [(ngModel)]="clave" type="text" class="form-control">
+								<input [(ngModel)]="persona.clave" type="text" class="form-control">
 							</div>
 
 							<div class="form-group">
 								<label for="recipient-name" class="col-form-label">Nombre: </label>
-								<input [(ngModel)]="nombre" type="text" class="form-control">
+								<input [(ngModel)]="persona.nombre" type="text" class="form-control">
 							</div>
 
 							<div class="form-group">
 								<label for="recipient-name" class="col-form-label">Direccion: </label>
-								<input [(ngModel)]="direccion" type="text" class="form-control">
+								<input [(ngModel)]="persona.direccion" type="text" class="form-control">
 							</div>
 
 							<div class="form-group">
 								<label for="recipient-name" class="col-form-label">Telefono: </label>
-								<input [(ngModel)]="telefono" type="text" class="form-control">
+								<input [(ngModel)]="persona.telefono" type="text" class="form-control">
 							</div>
 						</div>
-
 
 						<div class="col-md-12">
 							<button class="btn btn-primary float-right" (click)="guardar()">Guardar</button>
@@ -81,11 +80,11 @@
 
 						<div class="col-md-10">
 							<button class="btn btn-info float-right" data-toggle="modal"
-								data-target="#modalEditar">Editar</button>
+								data-target="#modalEditar" (click)="obtener(persona.clave)">Editar</button>
 						</div>
 
 						<div class="col-md-2">
-							<button class="btn btn-danger float-right" (click)="eliminar()">Eliminar</button>
+							<button class="btn btn-danger float-right" (click)="eliminar(persona.clave)">Eliminar</button>
 						</div>
 					</div>
 				</div>
@@ -108,30 +107,31 @@
 					<form>
 						<div class="form-group">
 							<label for="recipient-name" class="col-form-label">Clave: </label>
-							<input type="text" class="form-control" id="recipient-name">
+							<input [(ngModel)]="nuevaPersona.clave" name="clave" type="text" class="form-control" id="recipient-name">
 						</div>
 						<div class="form-group">
 							<label for="recipient-name" class="col-form-label">Nombre: </label>
-							<input type="text" class="form-control" id="recipient-name">
+							<input [(ngModel)]="nuevaPersona.nombre" name="nombre" type="text" class="form-control" id="recipient-name">
 						</div>
 						<div class="form-group">
 							<label for="recipient-name" class="col-form-label">Direccion: </label>
-							<input type="text" class="form-control" id="recipient-name">
+							<input [(ngModel)]="nuevaPersona.direccion" name="direccion" type="text" class="form-control" id="recipient-name">
 						</div>
 						<div class="form-group">
 							<label for="recipient-name" class="col-form-label">Telefono: </label>
-							<input type="text" class="form-control" id="recipient-name">
+							<input [(ngModel)]="nuevaPersona.telefono" name="telefono" type="text" class="form-control" id="recipient-name">
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">Actualizar</button>
+					<button type="button" class="btn btn-primary" (click)="editar(persona.clave)">Actualizar</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!--modal -->
+	<!-- modal -->
 	<script>
 		$("#exampleModal").modal('show');
 	</script>
+	

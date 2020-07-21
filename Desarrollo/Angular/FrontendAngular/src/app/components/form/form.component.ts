@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Persona } from '../../models/persona';
+import { PersonaDataService } from '../../services/persona.data.service';
 
 @Component({
   selector: 'app-form',
@@ -10,51 +11,65 @@ import { Persona } from '../../models/persona';
 export class FormComponent implements OnInit {
 
   persona: Persona;
-  persona1: Persona;
-  persona2: Persona;
-  personas = [];
-  clave: string;
-  nombre: string;
-  direccion: string;
-  telefono: string;
+  nuevaPersona: Persona;
+  personas: any;
+  modalStatus: string;
 
-  constructor() {
-    // Persona 1
-    this.persona1 = new Persona();
-    this.persona1.clave = '1';
-    this.persona1.nombre = 'Juan';
-    this.persona1.direccion = 'Av. 01';
-    this.persona1.telefono = '777';
-    this.personas.push(this.persona1);
-
-    // Persona 2
-    this.persona2 = new Persona();
-    this.persona2.clave = '2';
-    this.persona2.nombre = 'Gabriel';
-    this.persona2.direccion = 'Av. 02';
-    this.persona2.telefono = '999';
-    this.personas.push(this.persona2);
-    }
+  constructor(private service: PersonaDataService) { }
 
   ngOnInit() {
+    this.obtenerPersonas();
+    this.persona = new Persona();
+    this.nuevaPersona = new Persona();
   }
 
   guardar() {
-    const nuevaPersona = new Persona();
-    nuevaPersona.clave = this.clave;
-    nuevaPersona.nombre = this.nombre;
-    nuevaPersona.direccion = this.direccion;
-    nuevaPersona.telefono = this.telefono;
-    this.personas.push(nuevaPersona);
-    Swal.fire('Guardado', 'Realizado correctamente', 'success');
+    this.service.create(this.persona).subscribe(res => {
+      if (res) {
+        Swal.fire('Guardado', 'Realizado correctamente', 'success');
+        this.obtenerPersonas();
+      }
+    });
+  }
+
+  obtener(id){
+    this.service.get(id).subscribe(res => {
+      this.nuevaPersona = res;
+    });
+  }
+
+  obtenerPersonas() {
+    this.service.getAll().subscribe(res => {
+      this.personas = res;
+    });
   }
 
   editar() {
-    
+    this.service.update(this.nuevaPersona).subscribe(res => {
+      this.nuevaPersona = res;
+      this.obtenerPersonas();
+    });
   }
 
-  eliminar(clave) {
-    Swal.fire('Eliminado', 'Realizado correctamente', 'success');
+  eliminar(id) {
+    Swal.fire({
+      title: '¿Seguro que desea eliminar la persona?',
+      text: "¡No podra deshacer esta acción!",
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Si, eliminarlo'
+    }).then((res) => {
+      if (res.value) {
+        this.service.delete(id).subscribe(res => {
+          Swal.fire(
+            'Eliminado',
+            'La persona ha sido eliminado exitosamente',
+            'success'
+          )
+          this.obtenerPersonas();
+        })
+      }
+    });
   }
 
 }
