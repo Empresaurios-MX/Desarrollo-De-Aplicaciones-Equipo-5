@@ -1,7 +1,7 @@
-import 'package:empresauv/src/service/profile_service.dart';
-import 'package:empresauv/src/ui/profile/profile_add.dart';
+import 'package:empresauv/src/service/person_service.dart';
+import 'package:empresauv/src/ui/profile/person_add.dart';
 import 'package:flutter/material.dart';
-import 'package:empresauv/src/model/profile.dart';
+import 'package:empresauv/src/model/person.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,12 +10,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   BuildContext context;
-  ProfileService profileService;
+  PersonaService personaService;
 
   @override
   void initState() {
     super.initState();
-    profileService = ProfileService();
+    personaService = PersonaService();
   }
 
   @override
@@ -23,16 +23,16 @@ class _HomeScreenState extends State<HomeScreen> {
     this.context = context;
     return SafeArea(
       child: FutureBuilder(
-        future: profileService.getProfiles(),
-        builder: (BuildContext context, AsyncSnapshot<List<Profile>> snapshot) {
+        future: personaService.getPersons(),
+        builder: (BuildContext context, AsyncSnapshot<List<Persona>> snapshot) {
           if (snapshot.hasError) {
             return Center(
               child: Text(
                   "Ha ocurrido un error: ${snapshot.error.toString()}"),
             );
           } else if (snapshot.connectionState == ConnectionState.done) {
-            List<Profile> profiles = snapshot.data;
-            return _buildListView(profiles);
+            List<Persona> personas = snapshot.data;
+            return _buildListView(personas);
           } else {
             return Center(
               child: CircularProgressIndicator(),
@@ -43,12 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildListView(List<Profile> profiles) {
+  Widget _buildListView(List<Persona> personas) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          Profile profile = profiles[index];
+          Persona persona = personas[index];
           return Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Card(
@@ -59,11 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      profile.name,
+                      persona.nombre,
                       style: Theme.of(context).textTheme.title,
                     ),
-                    Text(profile.email),
-                    Text(profile.age.toString()),
+                    Text('Direccion: ' + persona.direccion),
+                    Text('Telefono: ' + persona.telefono),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
@@ -75,14 +75,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return AlertDialog(
                                     title: Text("Alerta"),
                                     content: Text(
-                                        "¿Está seguro de borrar: ${profile.name}?"),
+                                        "¿Está seguro de borrar: ${persona.nombre}?"),
                                     actions: <Widget>[
                                       FlatButton(
                                         child: Text("Sí"),
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          profileService
-                                              .deleteProfile(profile.id)
+                                          personaService
+                                              .deletePersona((persona.clave))
                                               .then((isSuccess) {
                                             if (isSuccess) {
                                               setState(() {});
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 });
                           },
                           child: Text(
-                            "Borrar",
+                            "Elimnar",
                             style: TextStyle(color: Colors.red),
                           ),
                         ),
@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return ProfileAddScreen(profile: profile);
+                              return PersonAddScreen(persona: persona);
                             }));
                           },
                           child: Text(
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         },
-        itemCount: profiles.length,
+        itemCount: personas.length,
       ),
     );
   }

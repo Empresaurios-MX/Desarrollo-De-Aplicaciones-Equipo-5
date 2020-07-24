@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:empresauv/src/ui/profile/profile_add.dart';
+import 'package:empresauv/src/ui/profile/person_add.dart';
 import 'package:empresauv/src/ui/home/home_screen.dart';
 
 GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
@@ -17,7 +17,7 @@ class App extends StatelessWidget {
         key: _scaffoldState,
         appBar: AppBar(
           title: Text(
-            "Empresa UV",
+            "Empresaurios",
             style: TextStyle(
               color: Colors.white,
             ),
@@ -28,7 +28,7 @@ class App extends StatelessWidget {
                 Navigator.push(
                   _scaffoldState.currentContext,
                   MaterialPageRoute(builder: (BuildContext context) {
-                    return ProfileAddScreen();
+                    return PersonAddScreen();
                   }),
                 );
               },

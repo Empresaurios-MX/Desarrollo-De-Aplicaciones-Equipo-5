@@ -1,12 +1,12 @@
-import 'package:empresauv/src/model/profile.dart';
+import 'package:empresauv/src/model/person.dart';
 import 'package:http/http.dart' show Client;
 
-class ProfileService {
-  final String baseUrl = "http://api.bengkelrobot.net:8001";
+class PersonaService {
+  final String baseUrl = "http://10.0.2.2:8080";
   Client client = Client();
 
-  Future<List<Profile>> getProfiles() async {
-    final response = await client.get("$baseUrl/api/profile");
+  Future<List<Persona>> getPersons() async {
+    final response = await client.get("$baseUrl/api/personas/");
     if (response.statusCode == 200) {
       return profileFromJson(response.body);
     } else {
@@ -14,22 +14,9 @@ class ProfileService {
     }
   }
 
-  Future<bool> createProfile(Profile data) async {
+  Future<bool> createPerson(Persona data) async {
     final response = await client.post(
-      "$baseUrl/api/profile",
-      headers: {"content-type": "application/json"},
-      body: profileToJson(data),
-    );
-    if (response.statusCode == 201) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  Future<bool> updateProfile(Profile data) async {
-    final response = await client.put(
-      "$baseUrl/api/profile/${data.id}",
+      "$baseUrl/api/personas/",
       headers: {"content-type": "application/json"},
       body: profileToJson(data),
     );
@@ -40,9 +27,22 @@ class ProfileService {
     }
   }
 
-  Future<bool> deleteProfile(int id) async {
+  Future<bool> updatePersona(Persona data) async {
+    final response = await client.put(
+      "$baseUrl/api/personas/",
+      headers: {"content-type": "application/json"},
+      body: profileToJson(data),
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> deletePersona(String id) async {
     final response = await client.delete(
-      "$baseUrl/api/profile/$id",
+      "$baseUrl/api/personas/$id",
       headers: {"content-type": "application/json"},
     );
     if (response.statusCode == 200) {
