@@ -27,8 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (BuildContext context, AsyncSnapshot<List<Persona>> snapshot) {
           if (snapshot.hasError) {
             return Center(
-              child: Text(
-                  "Ha ocurrido un error: ${snapshot.error.toString()}"),
+              child: Text("Ha ocurrido un error: ${snapshot.error.toString()}"),
             );
           } else if (snapshot.connectionState == ConnectionState.done) {
             List<Persona> personas = snapshot.data;

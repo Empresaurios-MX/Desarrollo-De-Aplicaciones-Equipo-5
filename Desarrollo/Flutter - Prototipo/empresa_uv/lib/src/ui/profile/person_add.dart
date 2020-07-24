@@ -98,7 +98,6 @@ class _PersonAddScreenState extends State<PersonAddScreen> {
                           direccion: direccion,
                           telefono: telefono);
                       if (widget.persona == null) {
-                        debugPrint(persona.toString());
                         _personService.createPerson(persona).then((isSuccess) {
                           setState(() => _isLoading = false);
                           if (isSuccess) {
