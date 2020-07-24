@@ -10,10 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *
- * @author Luis Angel
- */
 
 @Entity
 @Table(name = "personas")
