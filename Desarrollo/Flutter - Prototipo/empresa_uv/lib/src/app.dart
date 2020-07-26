@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:empresauv/src/ui/profile/person_add.dart';
+import 'package:empresauv/src/ui/persona/person_add.dart';
 import 'package:empresauv/src/ui/home/home_screen.dart';
 
 GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();

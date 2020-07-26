@@ -2,7 +2,7 @@ import 'package:empresauv/src/model/person.dart';
 import 'package:http/http.dart' show Client;
 
 class PersonaService {
-  final String baseUrl = "http://10.0.2.2:8080";
+  final String baseUrl = "http://192.168.100.20:7092";
   Client client = Client();
 
   Future<List<Persona>> getPersons() async {

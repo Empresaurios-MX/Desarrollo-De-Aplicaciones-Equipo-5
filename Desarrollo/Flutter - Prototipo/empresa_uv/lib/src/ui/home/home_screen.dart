@@ -1,5 +1,5 @@
 import 'package:empresauv/src/service/person_service.dart';
-import 'package:empresauv/src/ui/profile/person_add.dart';
+import 'package:empresauv/src/ui/persona/person_add.dart';
 import 'package:flutter/material.dart';
 import 'package:empresauv/src/model/person.dart';
 
